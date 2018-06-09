@@ -5,13 +5,19 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.Gravity;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -41,10 +47,10 @@ import static in.bizzmark.smartpoints_user.utility.UrlUtility.GET_STORES_LIST;
 
 /**
  * Created by Saikrupa on 4/1/2018.
+    
  */
 
 public class StoresActivity extends AppCompatActivity implements View.OnClickListener {
-
 
     RecyclerView recyclerview;
     StoresAdapter mAdapter;
@@ -52,14 +58,39 @@ public class StoresActivity extends AppCompatActivity implements View.OnClickLis
     Button btnPoints,btnMakeTransaction;
     public Toolbar toolbar;
     TextView tvEmptyView;
+    ImageView imageView_Menu, imageView_Share, imageView_signin;
+    private DrawerLayout mDrawerLayout;
+    private ActionBarDrawerToggle mToggle;
 
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_stores_list);
+
+        mDrawerLayout = (DrawerLayout)findViewById(R.id.drawerLayout);
+        mToggle = new ActionBarDrawerToggle(this,mDrawerLayout,R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        mDrawerLayout.addDrawerListener(mToggle);
+        mToggle.syncState();
+      // getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         recyclerview=(RecyclerView)findViewById(R.id.recyclerView);
         tvEmptyView=(TextView)findViewById(R.id.tvEmptyView);
+        imageView_Share = (ImageView)findViewById(R.id.header_share);
+        imageView_Share.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(StoresActivity.this,"share the app",Toast.LENGTH_LONG).show();
+            }
+        });
+
+        imageView_signin = (ImageView)findViewById(R.id.header_signin);
+        imageView_signin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getApplicationContext(),"signin",Toast.LENGTH_LONG).show();
+            }
+        });
+
 
         loadData();
         btnMakeTransaction=(Button)findViewById(R.id.btnTransaction);
@@ -159,6 +190,8 @@ public class StoresActivity extends AppCompatActivity implements View.OnClickLis
     }
 
 
+
+
     @Override
     public void onClick(View v) {
         if(v.getId()==R.id.btnPoints){
@@ -167,4 +200,6 @@ public class StoresActivity extends AppCompatActivity implements View.OnClickLis
             startActivity(new Intent(getApplicationContext(), NavigationActivity.class));
         }
     }
+
+
 }

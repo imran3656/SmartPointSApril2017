@@ -3,6 +3,8 @@
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="navigation_open">Open</string>
+    <string name="navigation_close">Close</string>
 
     <string name="action_logout">Logout</string>
     <string name="action_share">Share this app</string>
